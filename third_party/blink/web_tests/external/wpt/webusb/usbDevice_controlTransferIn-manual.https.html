@@ -196,16 +196,13 @@
                         'descriptor type');
           assert_equals(result.data.getUint16(2, /*littleEndian=*/true),
                         total_length, 'total length');
-          const configuration_value = result.data.getUint8(5);
-          const configuration = device.configurations.find((config) => {
-            return config.configurationValue == configuration_value;
-          });
+          const configuration = device.configurations[config_index];
           assert_not_equals(configuration, undefined);
           assert_equals(
               result.data.getUint8(4), configuration.interfaces.length,
               'number of interfaces');
           assert_equals(
-              configuration.configurationValue, configuration_value,
+              result.data.getUint8(5), configuration.configurationValue,
               'configuration value');
 
           const configuration_string = result.data.getUint8(6);
